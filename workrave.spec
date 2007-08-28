@@ -170,7 +170,6 @@ Terminal=false
 Type=Application
 Categories=GNOME;GTK;X-MandrivaLinux-MoreApplications-Accessibility;
 StartupNotify=true
-Encoding=UTF-8
 EOF
 
 #
