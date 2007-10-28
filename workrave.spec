@@ -1,5 +1,5 @@
-%define version 1.8.3
-%define release %mkrel 2
+%define version 1.8.5
+%define release %mkrel 1
 
 #
 # support of docking in GNOME panel. Not very useful since
@@ -175,7 +175,7 @@ EOF
 #
 # remove undesired files
 #
-rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/workrave.po 
+rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/workrave.po
 
 %find_lang %{name}
 
@@ -190,7 +190,7 @@ rm -rf %{buildroot}
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog NEWS README
+%doc AUTHORS COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/sound/events/*
 %{_bindir}/*
 %{_datadir}/%{name}
@@ -201,6 +201,7 @@ rm -rf %{buildroot}
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
+%{_datadir}/dbus-1/services/org.workrave.Workrave.service
 
 %if %enable_gnome
 %files gnome-applet
@@ -220,6 +221,4 @@ rm -rf %{buildroot}
 %{_datadir}/apps/kworkrave
 %_libdir/libkworkraveapplet.a
 %_libdir/libkworkraveapplet.la
-	  
 %endif
-
