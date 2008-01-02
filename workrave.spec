@@ -29,6 +29,7 @@ Release:	%{release}
 License:	GPL
 Group:		Accessibility
 URL:		http://www.workrave.org/
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.bz2
 
