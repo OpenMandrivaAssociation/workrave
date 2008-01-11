@@ -147,17 +147,6 @@ install -m0644 -D frontend/common/share/images/workrave-icon-small.png %{buildro
 #
 # menu entry
 #
-mkdir -p %{buildroot}%{_menudir}
-cat << _EOF_ > %{buildroot}%{_menudir}/%{name}
-?package(%{name}): \
- command="%{_bindir}/%{name}" \
- title="Workrave" \
- longtitle="%{longtitle}" \
- icon="%{name}.png" \
- needs="x11" \
- section="More Applications/Accessibility" \
- xdg="true"
-_EOF_
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -197,7 +186,6 @@ rm -rf %{buildroot}
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
 %{_datadir}/sounds/*
-%{_menudir}/%{name}
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
