@@ -1,5 +1,5 @@
 %define version 1.8.5
-%define release %mkrel 1
+%define release %mkrel 3
 
 #
 # support of docking in GNOME panel. Not very useful since
