@@ -1,6 +1,6 @@
-%define version 1.8.5
-%define release %mkrel 4
-
+%define version 1.9.0
+%define release %mkrel 1
+%define kdeversion 3
 #
 # support of docking in GNOME panel. Not very useful since
 # it can already embed in notification area.
@@ -38,6 +38,8 @@ BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:	libgnet2-devel
 BuildRequires:	dbus-devel
+BuildRequires:  gstreamer0.10-devel
+BuildRequires:  intltool
 %if %enable_xml
 BuildRequires:	gdome2-devel
 %endif
@@ -124,6 +126,7 @@ more with KDE environment, such as embedding in KDE panel.
 %if %enable_kde
 %if "%{_lib}" != "lib"
     --enable-libsuffix="%(A=%{_lib}; echo ${A/lib/})" \
+    --with-qt-includes="/opt/%{kdeversion}/include/"
 %endif
 	--enable-kde
 %else
