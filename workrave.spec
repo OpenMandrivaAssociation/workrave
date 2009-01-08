@@ -32,7 +32,7 @@ URL:		http://www.workrave.org/
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.bz2
-
+Patch0:     workrave-kde-errors.patch
 BuildRequires:	doxygen
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libGConf2-devel
@@ -105,9 +105,13 @@ more with KDE environment, such as embedding in KDE panel.
 
 %prep
 %setup -q
-
+%patch0 -p1
 %build
+%if %enable_kde
+%configure_kde3 \
+%else
 %configure2_5x \
+%endif
 	--enable-app-text=no	\
 	--enable-distribution=yes \
 	--enable-gconf=yes	\
@@ -124,10 +128,6 @@ more with KDE environment, such as embedding in KDE panel.
 	--disable-gnome \
 %endif
 %if %enable_kde
-%if "%{_lib}" != "lib"
-    --enable-libsuffix="%(A=%{_lib}; echo ${A/lib/})" \
-    --with-qt-includes="/opt/%{kdeversion}/include/"
-%endif
 	--enable-kde
 %else
 	--disable-kde
