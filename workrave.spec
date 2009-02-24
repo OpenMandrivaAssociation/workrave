@@ -11,7 +11,7 @@
 #
 # support for KDE
 #
-%define enable_kde 1
+%define enable_kde 0
 %{?_without_kde: %global enable_kde 0}
 
 #
@@ -151,8 +151,8 @@ install -m0644 -D frontend/common/share/images/workrave-icon-small.png %{buildro
 # menu entry
 #
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Workrave
 Comment=%{longtitle}
