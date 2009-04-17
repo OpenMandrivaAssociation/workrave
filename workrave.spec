@@ -37,7 +37,8 @@ BuildRequires:	doxygen
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libGConf2-devel
 BuildRequires:	libgnet2-devel
-BuildRequires:	dbus-devel
+BuildRequires:	dbus-glib-devel
+BuildRequires:	libxmu-devel
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  intltool
 %if %enable_xml
@@ -84,6 +85,7 @@ This package contains applet specific for GNOME desktop environment.
 It is not necessary for basic functionality, but %{name} can cooperate
 more with GNOME environment, such as embedding in GNOME panel.
 
+%if %enable_kde
 %package	kde-applet
 Summary:	Workrave KDE applet
 Group:		Accessibility
@@ -102,10 +104,12 @@ will still be asked to pause on time.
 This package contains applet specific for KDE desktop environment.
 It is not necessary for basic functionality, but %{name} can cooperate
 more with KDE environment, such as embedding in KDE panel.
+%endif
 
 %prep
 %setup -q
 %patch0 -p1
+
 %build
 %if %enable_kde
 %configure_kde3 \
@@ -163,11 +167,6 @@ Type=Application
 Categories=GNOME;GTK;X-MandrivaLinux-MoreApplications-Accessibility;
 StartupNotify=true
 EOF
-
-#
-# remove undesired files
-#
-rm -f %{buildroot}%{_datadir}/locale/*/LC_MESSAGES/workrave.po
 
 %find_lang %{name}
 
