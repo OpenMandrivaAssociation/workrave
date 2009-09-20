@@ -1,5 +1,5 @@
 %define version 1.9.0
-%define release %mkrel 1
+%define release %mkrel 2
 %define kdeversion 3
 #
 # support of docking in GNOME panel. Not very useful since
