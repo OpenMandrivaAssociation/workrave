@@ -1,28 +1,7 @@
 %define version 1.9.0
 %define release %mkrel 2
-%define kdeversion 3
-#
-# support of docking in GNOME panel. Not very useful since
-# it can already embed in notification area.
-#
-%define enable_gnome 1
-%{?_without_gnome: %global enable_gnome 0}
 
-#
-# support for KDE
-#
-%define enable_kde 0
-%{?_without_kde: %global enable_kde 0}
-
-#
-# save config as XML file. GConf is preferred for GNOME desktop
-#
-%define enable_xml 0
-%{?_with_xml: %global enable_xml 1}
-
-%define longtitle Assists in recovery and prevention of Repetitive Strain Injury (RSI)
-
-Summary:	%{longtitle}
+Summary:	longtitle Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
 Version:	%{version}
 Release:	%{release}
@@ -30,9 +9,9 @@ License:	GPL
 Group:		Accessibility
 URL:		http://www.workrave.org/
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.bz2
-Patch0:     workrave-kde-errors.patch
+Patch1:		workrave-1.9.1-compile.patch
+Patch2:		workrave-1.9.0-gcc44.patch
 BuildRequires:	doxygen
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libGConf2-devel
@@ -41,16 +20,9 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:	libxmu-devel
 BuildRequires:  gstreamer0.10-devel
 BuildRequires:  intltool
-%if %enable_xml
-BuildRequires:	gdome2-devel
-%endif
-%if %enable_gnome
 BuildRequires:	libgnomeuimm2.6-devel
 BuildRequires:	gnome-panel-devel
-%endif
-%if %enable_kde
-BuildRequires:	kdelibs-devel
-%endif
+BuildRequires:	libtool
 
 %description
 Workrave is a program that assists in the recovery and prevention of
@@ -85,59 +57,23 @@ This package contains applet specific for GNOME desktop environment.
 It is not necessary for basic functionality, but %{name} can cooperate
 more with GNOME environment, such as embedding in GNOME panel.
 
-%if %enable_kde
-%package	kde-applet
-Summary:	Workrave KDE applet
-Group:		Accessibility
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{name}-applet <= 1.6.2
-
-%description	kde-applet
-Workrave is a program that assists in the recovery and prevention of
-Repetitive Strain Injury (RSI). The program frequently alerts you to
-take micro-pauses, rest breaks and restricts you to your daily limit.
-
-The program can be run distributed on one or more PCs. All connected
-PCs share the same timing information. When you switch computers, you
-will still be asked to pause on time.
-
-This package contains applet specific for KDE desktop environment.
-It is not necessary for basic functionality, but %{name} can cooperate
-more with KDE environment, such as embedding in KDE panel.
-%endif
-
 %prep
 %setup -q
-%patch0 -p1
+%patch1 -p1
+%patch2 -p0
+touch ChangeLog
 
 %build
-%if %enable_kde
-%configure_kde3 \
-%else
+NOCONFIGURE=yes ./autogen.sh
 %configure2_5x \
-%endif
 	--enable-app-text=no	\
 	--enable-distribution=yes \
 	--enable-gconf=yes	\
 	--enable-dbus=yes	\
 	--disable-rpath		\
-%if %enable_xml
-	--enable-xml \
-%else
 	--disable-xml \
-%endif
-%if %enable_gnome
 	--enable-gnome \
-%else
-	--disable-gnome \
-%endif
-%if %enable_kde
-	--enable-kde
-%else
 	--disable-kde
-%endif
-
-
 %make
 
 %install
@@ -197,22 +133,9 @@ rm -rf %{buildroot}
 %{_miconsdir}/%{name}.png
 %{_datadir}/dbus-1/services/org.workrave.Workrave.service
 
-%if %enable_gnome
 %files gnome-applet
 %defattr(-,root,root)
 %doc COPYING
 %{_libdir}/bonobo/servers/*.server
 %{_libexecdir}/workrave-applet
 %{_datadir}/gnome-2.0/ui/*.xml
-%endif
-
-%if %enable_kde
-%files kde-applet
-%defattr(-,root,root)
-%doc COPYING
-%{_libdir}/libkworkraveapplet.so
-%{_datadir}/apps/kicker/applets/*.desktop
-%{_datadir}/apps/kworkrave
-%_libdir/libkworkraveapplet.a
-%_libdir/libkworkraveapplet.la
-%endif
