@@ -1,7 +1,7 @@
 %define version 1.9.0
-%define release %mkrel 2
+%define release %mkrel 3
 
-Summary:	longtitle Assists in recovery and prevention of Repetitive Strain Injury (RSI)
+Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
 Version:	%{version}
 Release:	%{release}
@@ -32,11 +32,6 @@ take micro-pauses, rest breaks and restricts you to your daily limit.
 The program can be run distributed on one or more PCs. All connected
 PCs share the same timing information. When you switch computers, you
 will still be asked to pause on time.
-
-Build Options:
---with xml          Store configuration as XML file
---without gnome     Don't build applet that docks in GNOME panel
---without kde       Don't build applet that docks in KDE panel
 
 %package	gnome-applet
 Summary:	Workrave GNOME applet
@@ -95,7 +90,7 @@ mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Workrave
-Comment=%{longtitle}
+Comment=Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
