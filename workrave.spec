@@ -1,5 +1,5 @@
-%define version 1.9.0
-%define release %mkrel 3
+%define version 1.9.1
+%define release %mkrel 1
 
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
@@ -9,7 +9,7 @@ License:	GPL
 Group:		Accessibility
 URL:		http://www.workrave.org/
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.bz2
+Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.gz
 Patch1:		workrave-1.9.1-compile.patch
 Patch2:		workrave-1.9.0-gcc44.patch
 BuildRequires:	doxygen
@@ -55,7 +55,6 @@ more with GNOME environment, such as embedding in GNOME panel.
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p0
 touch ChangeLog
 
 %build
