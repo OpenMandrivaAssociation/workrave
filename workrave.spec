@@ -12,6 +12,7 @@ Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.gz
 Patch1:		workrave-1.9.1-compile.patch
 Patch2:		workrave-1.9.0-gcc44.patch
+Patch3:		workrave-1.9.1-abort.patch
 BuildRequires:	doxygen
 BuildRequires:	gtkmm2.4-devel
 BuildRequires:	libGConf2-devel
@@ -55,6 +56,7 @@ more with GNOME environment, such as embedding in GNOME panel.
 %prep
 %setup -q
 %patch1 -p1
+%patch3 -p1
 touch ChangeLog
 
 %build
