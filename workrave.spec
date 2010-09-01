@@ -21,6 +21,7 @@ BuildRequires:  intltool
 BuildRequires:	libgnomeuimm2.6-devel
 BuildRequires:	gnome-panel-devel
 BuildRequires:	libtool
+BuildRequires:	python-cheetah
 
 %description
 Workrave is a program that assists in the recovery and prevention of
