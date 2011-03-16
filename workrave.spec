@@ -1,4 +1,4 @@
-%define version 1.9.2
+%define version 1.9.3
 %define release %mkrel 1
 
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
