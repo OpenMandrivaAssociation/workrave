@@ -1,28 +1,25 @@
-%define version 1.9.3
-%define release %mkrel 1
-
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
-Version:	%{version}
-Release:	%{release}
-License:	GPL
+Version:	1.9.4
+Release:	%mkrel 2
+License:	GPLv3+
 Group:		Accessibility
 URL:		http://www.workrave.org/
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.gz
+Source1:	workwave-1.9.4-ru.po
 BuildRequires:	doxygen
-BuildRequires:	gtkmm2.4-devel
-BuildRequires:	libGConf2-devel
-BuildRequires:	libgnet2-devel
-BuildRequires:	dbus-glib-devel
-BuildRequires:	libxmu-devel
-BuildRequires:  gstreamer0.10-devel
-BuildRequires:  intltool
-BuildRequires:	libgnomeuimm2.6-devel
-BuildRequires:	gnome-panel-devel
+BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	python-cheetah
-BuildRequires:	pulseaudio-devel
+BuildRequires:	pkgconfig(dbus-glib-1)
+BuildRequires:	pkgconfig(gconf-2.0)
+BuildRequires:	pkgconfig(gdkmm-2.4)
+BuildRequires:	pkgconfig(gnet-2.0)
+BuildRequires:	pkgconfig(gstreamer-0.10)
+BuildRequires:	pkgconfig(libgnomeuimm-2.6)
+BuildRequires:	pkgconfig(libpanelapplet-2.0)
+BuildRequires:	pkgconfig(libpulse)
+BuildRequires:	pkgconfig(xmu)
 
 %description
 Workrave is a program that assists in the recovery and prevention of
@@ -55,6 +52,8 @@ more with GNOME environment, such as embedding in GNOME panel.
 %prep
 %setup -q
 touch ChangeLog
+rm -f po/ru.po
+cp %{SOURCE1} po/ru.po
 
 %build
 %configure2_5x \
@@ -70,63 +69,24 @@ touch ChangeLog
 
 %install
 rm -rf %{buildroot}
-%{makeinstall_std}
-
-#
-# icons
-#
-install -m0644 -D frontend/common/share/images/workrave-icon-huge.png %{buildroot}%{_liconsdir}/%{name}.png
-install -m0644 -D frontend/common/share/images/workrave-icon-large.png %{buildroot}%{_iconsdir}/%{name}.png
-install -m0644 -D frontend/common/share/images/workrave-icon-small.png %{buildroot}%{_miconsdir}/%{name}.png
-
-#
-# menu entry
-#
-
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=Workrave
-Comment=Assists in recovery and prevention of Repetitive Strain Injury (RSI)
-Exec=%{_bindir}/%{name}
-Icon=%{name}
-Terminal=false
-Type=Application
-Categories=GNOME;GTK;X-MandrivaLinux-MoreApplications-Accessibility;
-StartupNotify=true
-EOF
+%makeinstall_std
 
 %find_lang %{name}
 
 %clean
 rm -rf %{buildroot}
 
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc AUTHORS COPYING NEWS README
 %config(noreplace) %{_sysconfdir}/sound/events/*
 %{_bindir}/*
 %{_datadir}/%{name}
-%{_datadir}/applications/*
-%{_datadir}/pixmaps/*
-%{_datadir}/sounds/*
-%{_iconsdir}/%{name}.png
-%{_liconsdir}/%{name}.png
-%{_miconsdir}/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/sounds/%{name}
 %{_datadir}/dbus-1/services/org.workrave.Workrave.service
+%{_iconsdir}/hicolor/*/apps/%{name}*
 
 %files gnome-applet
-%defattr(-,root,root)
 %doc COPYING
 %{_libdir}/bonobo/servers/*.server
 %{_libexecdir}/workrave-applet
