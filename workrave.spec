@@ -1,7 +1,7 @@
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
 Version:	1.9.4
-Release:	%mkrel 2
+Release:	3
 License:	GPLv3+
 Group:		Accessibility
 URL:		http://www.workrave.org/
@@ -16,10 +16,10 @@ BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(gdkmm-2.4)
 BuildRequires:	pkgconfig(gnet-2.0)
 BuildRequires:	pkgconfig(gstreamer-0.10)
-BuildRequires:	pkgconfig(libgnomeuimm-2.6)
-BuildRequires:	pkgconfig(libpanelapplet-2.0)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(xmu)
+Obsoletes:	%{name}-gnome-applet < 1.9.4-3
+Obsoletes:	%{name}-applet < 1.9.4
 
 %description
 Workrave is a program that assists in the recovery and prevention of
@@ -29,25 +29,6 @@ take micro-pauses, rest breaks and restricts you to your daily limit.
 The program can be run distributed on one or more PCs. All connected
 PCs share the same timing information. When you switch computers, you
 will still be asked to pause on time.
-
-%package	gnome-applet
-Summary:	Workrave GNOME applet
-Group:		Accessibility
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:	%{name}-applet <= 1.6.2
-
-%description	gnome-applet
-Workrave is a program that assists in the recovery and prevention of
-Repetitive Strain Injury (RSI). The program frequently alerts you to
-take micro-pauses, rest breaks and restricts you to your daily limit.
-
-The program can be run distributed on one or more PCs. All connected
-PCs share the same timing information. When you switch computers, you
-will still be asked to pause on time.
-
-This package contains applet specific for GNOME desktop environment.
-It is not necessary for basic functionality, but %{name} can cooperate
-more with GNOME environment, such as embedding in GNOME panel.
 
 %prep
 %setup -q
@@ -63,22 +44,17 @@ cp %{SOURCE1} po/ru.po
 	--enable-dbus=yes	\
 	--disable-rpath		\
 	--disable-xml \
-	--enable-gnome \
+	--disable-gnome \
 	--disable-kde
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
 %files -f %{name}.lang
 %doc AUTHORS COPYING NEWS README
-%config(noreplace) %{_sysconfdir}/sound/events/*
 %{_bindir}/*
 %{_datadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
@@ -86,8 +62,3 @@ rm -rf %{buildroot}
 %{_datadir}/dbus-1/services/org.workrave.Workrave.service
 %{_iconsdir}/hicolor/*/apps/%{name}*
 
-%files gnome-applet
-%doc COPYING
-%{_libdir}/bonobo/servers/*.server
-%{_libexecdir}/workrave-applet
-%{_datadir}/gnome-2.0/ui/*.xml
