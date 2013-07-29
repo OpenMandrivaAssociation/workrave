@@ -33,6 +33,7 @@ BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(sigc++-2.0)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xscrnsaver)
+BuildRequires:	pkgconfig(xtst)
 Obsoletes:	%{name}-applet < 1.9.4
 
 %description
