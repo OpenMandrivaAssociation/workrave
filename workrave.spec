@@ -7,7 +7,7 @@
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
 Version:	1.10.1
-Release:	1
+Release:	2
 License:	GPLv3+
 Group:		Accessibility
 Url:		http://www.workrave.org/
