@@ -29,7 +29,11 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gtkmm-3.0)
+%if %mdvver >= 201500
+BuildRequires:	pkgconfig(libpanel-applet)
+%else
 BuildRequires:	pkgconfig(libpanelapplet-4.0)
+%endif
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(sigc++-2.0)
 BuildRequires:	pkgconfig(xmu)
