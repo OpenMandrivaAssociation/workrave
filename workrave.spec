@@ -1,6 +1,7 @@
 %define api 1.0
 %define major 0
 %define libname %mklibname workrave-private %{api} %{major}
+%define libgtk2name %mklibname workrave-gtk2-private %{api} %{major}
 %define girname %mklibname %{name}-gir %{api}
 %define devname %mklibname -d workrave-private
 %define fver %(echo %{version} | tr . _)
@@ -127,6 +128,18 @@ Sahred library for %{name}.
 
 #----------------------------------------------------------------------------
 
+%package -n %{libgtk2name}
+Group:          System/Libraries
+Summary:        Shared library for %{name}
+
+%description -n %{libgtk2name}
+Sahred library for %{name}.
+
+%files -n %{libgtk2name}
+%{_libdir}/libworkrave-gtk2-private-%{api}.so.%{major}*
+
+#----------------------------------------------------------------------------
+
 %package -n %{girname}
 Summary:	GObject Introspection interface library for %{name}
 Group:		System/Libraries
@@ -144,6 +157,7 @@ GObject Introspection interface library for %{name}.
 Summary:	Development libraries, header files and utilities for %{name}
 Group:		Development/GNOME and GTK+
 Requires:	%{libname} = %{version}-%{release}
+Requires:       %{libgtk2name} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n %{devname}
@@ -160,6 +174,7 @@ This package contains the files necessary to develop applications with
 
 %files -n %{devname}
 %{_libdir}/libworkrave-private-%{api}.so
+%{_libdir}/libworkrave-gtk2-private-%{api}.so
 %{_datadir}/gir-1.0/Workrave-%{api}.gir
 
 #----------------------------------------------------------------------------
