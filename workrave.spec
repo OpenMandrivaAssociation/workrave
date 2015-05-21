@@ -3,29 +3,30 @@
 %define libname %mklibname workrave-private %{api} %{major}
 %define girname %mklibname %{name}-gir %{api}
 %define devname %mklibname -d workrave-private
+%define fver %(echo %{version} | tr . _)
+%define debug_package %{nil}
 
 Summary:	Assists in recovery and prevention of Repetitive Strain Injury (RSI)
 Name:		workrave
-Version:	1.10.1
-Release:	2
+Version:	1.10.6
+Release:	1
 License:	GPLv3+
 Group:		Accessibility
 Url:		http://www.workrave.org/
-Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{version}.tar.gz
+Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{fver}.tar.gz
 Patch0:		workrave-1.10.1-desktop.patch
 BuildRequires:	doxygen
 BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	python-cheetah
 BuildRequires:	pkgconfig(dbus-glib-1)
-BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(gdkmm-2.4)
 BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(glibmm-2.4)
 BuildRequires:	pkgconfig(gnet-2.0)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:	pkgconfig(gstreamer-0.10)
+BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gtkmm-3.0)
 BuildRequires:	pkgconfig(libpanelapplet-4.0)
@@ -34,6 +35,7 @@ BuildRequires:	pkgconfig(sigc++-2.0)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xscrnsaver)
 BuildRequires:	pkgconfig(xtst)
+BuildRequires:	autoconf
 Obsoletes:	%{name}-applet < 1.9.4
 
 %description
@@ -53,6 +55,8 @@ will still be asked to pause on time.
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/sounds/%{name}
 %{_datadir}/dbus-1/services/org.workrave.Workrave.service
+%{_datadir}/appdata/workrave.appdata.xml
+%{_datadir}/cinnamon/applets/workrave@workrave.org
 %{_iconsdir}/hicolor/*/apps/%{name}*
 %{_iconsdir}/hicolor/scalable/workrave-sheep.svg
 
@@ -77,10 +81,11 @@ It is not necessary for basic functionality, but %{name} can cooperate
 more with GNOME environment, such as embedding in GNOME panel.
 
 %files gnome-applet
-%{_libexecdir}/workrave-applet
+%{_libdir}/gnome-applets/workrave-applet
 %{_datadir}/dbus-1/services/org.gnome.panel.applet.WorkraveAppletFactory.service
 %{_datadir}/gnome-panel/4.0/applets/org.workrave.WorkraveApplet.panel-applet
 %{_datadir}/gnome-panel/ui/workrave-gnome-applet-menu.xml
+
 
 #----------------------------------------------------------------------------
 
@@ -156,8 +161,8 @@ This package contains the files necessary to develop applications with
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}-%{fver}
+./autogen.sh
 
 %build
 %configure2_5x \
