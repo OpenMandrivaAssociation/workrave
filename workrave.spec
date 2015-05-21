@@ -169,6 +169,7 @@ This package contains the files necessary to develop applications with
 ./autogen.sh
 
 %build
+export PYTHON=python2
 %configure2_5x \
 	--enable-app-text=no \
 	--enable-distribution=yes \
