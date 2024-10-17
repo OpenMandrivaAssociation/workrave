@@ -13,7 +13,7 @@ Version:	1.10.6
 Release:	1
 License:	GPLv3+
 Group:		Accessibility
-Url:		http://www.workrave.org/
+Url:		https://www.workrave.org/
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{fver}.tar.gz
 Patch0:		workrave-1.10.1-desktop.patch
 BuildRequires:	doxygen
