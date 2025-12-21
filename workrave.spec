@@ -16,6 +16,10 @@ Group:		Accessibility
 Url:		https://www.workrave.org/
 Source0:	http://prdownloads.sourceforge.net/workrave/%{name}-%{fver}.tar.gz
 Patch0:		workrave-1.10.1-desktop.patch
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	doxygen
 BuildRequires:	intltool
 BuildRequires:	libtool
